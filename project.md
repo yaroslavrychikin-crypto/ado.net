@@ -4,19 +4,16 @@
 dotnet new mvc -n ShopApp -o shop-docker
 cd shop-docker
 
-# Переименовать csproj под наше имя (опционально)
-mv ShopApp.csproj ShopApp.csproj   # имя уже совпадает
-
 # Добавить пакет Npgsql
 dotnet add package Npgsql --version 8.0.5
 
 # Удалить стандартные шаблонные файлы, которые не нужны
-rm -rf Views/Home Views/Shared/Error.cshtml Views/_ViewImports.cshtml Views/_ViewStart.cshtml
-rm -f Controllers/HomeController.cs Models/ErrorViewModel.cs
+Views/Home Views/Shared/Error.cshtml Views/_ViewImports.cshtml Views/_ViewStart.cshtml
+Controllers/HomeController.cs Models/ErrorViewModel.cs
 
 # Создать наши папки и файлы
-mkdir -p Data Views/Products
-touch Data/DbHelper.cs \
+Data Views/Products
+Data/DbHelper.cs \
       Controllers/ProductsController.cs \
       Models/Product.cs \
       Views/Products/Index.cshtml \
