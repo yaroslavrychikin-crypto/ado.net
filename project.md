@@ -121,7 +121,6 @@ ENTRYPOINT ["dotnet", "ShopApp.dll"]
 
 ## 4. Модель Product.cs
 
-Без изменений:
 
 ```csharp
 namespace ShopApp.Models;
