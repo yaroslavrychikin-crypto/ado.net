@@ -72,9 +72,9 @@ services:
     environment:
       POSTGRES_DB: shopdb
       POSTGRES_USER: shopuser
-      POSTGRES_PASSWORD: shoppass
+      POSTGRES_PASSWORD: 12345
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -90,13 +90,13 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__Default=Host=db;Port=5432;Database=shopdb;Username=shopuser;Password=shoppass
+      - ConnectionStrings__Default=Host=db;Port=5432;Database=shopdb;Username=shopuser;Password=12345;SslMode=Disable;
     depends_on:
       db:
         condition: service_healthy
 
 volumes:
-  pgdata:
+  pgdata::
 ```
 
 **Ключевые моменты:**
@@ -115,7 +115,7 @@ COPY *.csproj .
 RUN dotnet restore
 COPY . .
 RUN dotnet publish -c Release -o /app/publish
-
+RUN apt-get update && apt-get install -y libgssapi-krb5-2
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
