@@ -1,4 +1,30 @@
+## Создание проекта
+```cmd
+# Создать MVC-проект в папке shop-docker
+dotnet new mvc -n ShopApp -o shop-docker
+cd shop-docker
 
+# Переименовать csproj под наше имя (опционально)
+mv ShopApp.csproj ShopApp.csproj   # имя уже совпадает
+
+# Добавить пакет Npgsql
+dotnet add package Npgsql --version 8.0.5
+
+# Удалить стандартные шаблонные файлы, которые не нужны
+rm -rf Views/Home Views/Shared/Error.cshtml Views/_ViewImports.cshtml Views/_ViewStart.cshtml
+rm -f Controllers/HomeController.cs Models/ErrorViewModel.cs
+
+# Создать наши папки и файлы
+mkdir -p Data Views/Products
+touch Data/DbHelper.cs \
+      Controllers/ProductsController.cs \
+      Models/Product.cs \
+      Views/Products/Index.cshtml \
+      Views/Products/Details.cshtml \
+      Views/Products/Create.cshtml \
+      docker-compose.yml \
+      Dockerfile
+```
 ## Что меняется по сравнению с SQL Server версией
 
 | Компонент | SQL Server | PostgreSQL |
