@@ -62,8 +62,6 @@ volumes:
   pgdata:
 ```
 
-> `SslMode=Disable;GSS Encryption Mode=Disable` — чтобы не наткнуться на проблему с GSS/Kerberos в образе .NET.
-
 ---
 
 ## 2. Dockerfile
