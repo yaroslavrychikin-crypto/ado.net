@@ -112,9 +112,9 @@ public static async Task<int> UpdateDataAsync(int businessEntityId, string newLa
 ```
 
 ---
-# Тема 5. Транзакции: Commit, Rollback, Savepoints, вложенность (MSSQL)
+## Тема 5. Транзакции: Commit, Rollback, Savepoints, вложенность (MSSQL)
 
-## 5.1. Базовая транзакция
+### 5.1. Базовая транзакция
 
 ```csharp
 using (var conn = new SqlConnection(DbConfig.ConnectionString))
@@ -155,7 +155,7 @@ using (var conn = new SqlConnection(DbConfig.ConnectionString))
 
 **Нюанс:** если команда создана без транзакции (`new SqlCommand(sql, conn)`), она выполнится вне её, и `Rollback` её не затронет — данные останутся изменёнными.
 
-## 5.2. Уровни изоляции
+### 5.2. Уровни изоляции
 
 ```csharp
 // ReadCommitted — по умолчанию в SQL Server
@@ -168,7 +168,7 @@ using (var tran = conn.BeginTransaction(IsolationLevel.Serializable)) { /* ... *
 using (var tran = conn.BeginTransaction(IsolationLevel.Snapshot)) { /* ... */ }
 ```
 
-## 5.3. Savepoints: частичный откат
+### 5.3. Savepoints: частичный откат
 
 ```csharp
 using (var tran = conn.BeginTransaction())
@@ -217,7 +217,7 @@ using (var tran = conn.BeginTransaction())
 
 **Нюанс:** после `Rollback("point")` транзакция остаётся активной. Если не вызвать `Commit()`, изменения до savepoint будут потеряны при закрытии соединения.
 
-## 5.4. Вложенность и `TransactionScope`
+### 5.4. Вложенность и `TransactionScope`
 
 `SqlTransaction` не поддерживает настоящую вложенность — второй `BeginTransaction()` на том же соединении выбросит исключение. Для распределённых транзакций используется `TransactionScope`, но в .NET Core на Linux он не поддерживается (нужен Windows + MSDTC).
 
